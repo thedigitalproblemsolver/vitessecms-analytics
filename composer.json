@@ -1,0 +1,29 @@
+{
+  "name": "vitessecms/analytics",
+  "type": "library",
+  "description": "Analytics module for VitesseCms",
+  "keywords": [
+    "php",
+    "phalcon",
+    "vitessecms"
+  ],
+  "homepage": "https://github.com/thedigitalproblemsolver/VitesseCMS",
+  "license": "GPL-2.0-or-later",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Jasper Jaklofsky",
+      "email": "info@thedigitalproblemsolver.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "VitesseCms\\Analytics\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.1",
+    "ext-phalcon": "5.1.4",
+    "vitessecms/admin": "~0.4.0"
+  }
+}
