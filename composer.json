@@ -1,5 +1,5 @@
 {
-  "name": "vitessecms-analytics",
+  "name": "vitessecms/analytics",
   "type": "library",
   "description": "Analytics module for VitesseCms",
   "keywords": [
