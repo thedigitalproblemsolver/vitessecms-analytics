@@ -12,4 +12,9 @@ class AnalyticsEntry extends AbstractCollection
     public string $operatingSystem;
     public string $browser;
     public string $browserVersion;
+
+    public function getNameField(?string $languageShort = null): string
+    {
+        return $this->slug ?? '';
+    }
 }

@@ -3,6 +3,7 @@
 namespace VitesseCms\Analytics\Repositories;
 
 use VitesseCms\Analytics\Models\AnalyticsEntry;
+use VitesseCms\Analytics\Models\AnalyticsEntryIterator;
 
 class AnalyticsEntryRepository
 {
@@ -17,5 +18,19 @@ class AnalyticsEntryRepository
         endif;
 
         return null;
+    }
+
+    public function findAll(
+        bool $hideUnpublished = true,
+        ?int $limit = null,
+    ): AnalyticsEntryIterator
+    {
+        AnalyticsEntry::setFindPublished($hideUnpublished);
+        AnalyticsEntry::addFindOrder('name');
+        if ($limit !== null) {
+            AnalyticsEntry::setFindLimit($limit);
+        }
+
+        return new AnalyticsEntryIterator(AnalyticsEntry::findAll());
     }
 }

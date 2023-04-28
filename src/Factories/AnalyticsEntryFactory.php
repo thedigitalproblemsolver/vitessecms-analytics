@@ -9,12 +9,12 @@ use VitesseCms\Analytics\Models\AnalyticsEntry;
 class AnalyticsEntryFactory
 {
     public static function create(
-        string    $slug,
+        string   $slug,
         DateTime $entryTime,
-        string    $operatingSystem,
-        string    $browser,
-        string    $browserVersion,
-        bool      $published = true
+        string   $operatingSystem,
+        string   $browser,
+        string   $browserVersion,
+        bool     $published = true
     ): AnalyticsEntry
     {
         $analyticsEntry = new AnalyticsEntry();
