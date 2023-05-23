@@ -4,6 +4,8 @@ namespace VitesseCms\Analytics\Repositories;
 
 use VitesseCms\Analytics\Models\AnalyticsEntry;
 use VitesseCms\Analytics\Models\AnalyticsEntryIterator;
+use VitesseCms\Database\Models\FindOrderIterator;
+use VitesseCms\Database\Models\FindValueIterator;
 
 class AnalyticsEntryRepository
 {
@@ -21,16 +23,49 @@ class AnalyticsEntryRepository
     }
 
     public function findAll(
-        bool $hideUnpublished = true,
-        ?int $limit = null,
+        ?FindValueIterator $findValues = null,
+        bool               $hideUnpublished = true,
+        ?int               $limit = null,
+        ?FindOrderIterator $findOrders = null
     ): AnalyticsEntryIterator
     {
         AnalyticsEntry::setFindPublished($hideUnpublished);
-        AnalyticsEntry::addFindOrder('name');
         if ($limit !== null) {
             AnalyticsEntry::setFindLimit($limit);
         }
 
+        $this->parseFindValues($findValues);
+        $this->parseFindOrders($findOrders);
+
         return new AnalyticsEntryIterator(AnalyticsEntry::findAll());
+    }
+
+    protected function parseFindValues(?FindValueIterator $findValues = null): void
+    {
+        if ($findValues !== null) :
+            while ($findValues->valid()) :
+                $findValue = $findValues->current();
+                AnalyticsEntry::setFindValue(
+                    $findValue->getKey(),
+                    $findValue->getValue(),
+                    $findValue->getType()
+                );
+                $findValues->next();
+            endwhile;
+        endif;
+    }
+
+    protected function parseFindOrders(?FindOrderIterator $findOrders = null): void
+    {
+        if ($findOrders !== null) :
+            while ($findOrders->valid()) :
+                $findOrder = $findOrders->current();
+                AnalyticsEntry::addFindOrder(
+                    $findOrder->getKey(),
+                    $findOrder->getOrder()
+                );
+                $findOrders->next();
+            endwhile;
+        endif;
     }
 }
