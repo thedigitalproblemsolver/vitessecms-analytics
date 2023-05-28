@@ -14,6 +14,7 @@ class AnalyticsEntryFactory
         string   $operatingSystem,
         string   $browser,
         string   $browserVersion,
+        string   $userAgent,
         bool     $published = true
     ): AnalyticsEntry
     {
@@ -24,6 +25,7 @@ class AnalyticsEntryFactory
         $analyticsEntry->operatingSystem = $operatingSystem;
         $analyticsEntry->browserVersion = $browserVersion;
         $analyticsEntry->published = $published;
+        $analyticsEntry->userAgent = $userAgent;
 
         return $analyticsEntry;
     }
