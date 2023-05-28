@@ -7,6 +7,7 @@ use VitesseCms\Database\AbstractCollection;
 
 class AnalyticsEntry extends AbstractCollection
 {
+    public string $userAgent;
     public UTCDateTimeInterface $entryTime;
     public ?UTCDateTimeInterface $exitTime = null;
     public string $operatingSystem;

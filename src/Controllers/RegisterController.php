@@ -30,7 +30,8 @@ class RegisterController extends AbstractControllerAdmin
             new DateTime(),
             ServerUtil::getOperatingSystemFromUserAgent($this->request->getUserAgent()),
             ServerUtil::getBrowserNameFromUserAgent($this->request->getUserAgent()),
-            ServerUtil::getBrowserVersionFromUserAgent($this->request->getUserAgent())
+            ServerUtil::getBrowserVersionFromUserAgent($this->request->getUserAgent()),
+            $this->request->getUserAgent()
         );
         $analyticsEntry->save();
 
