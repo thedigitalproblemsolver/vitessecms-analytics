@@ -26,7 +26,7 @@
     "ext-phalcon": "5.1.4",
     "ext-mongodb": "*",
     "vitessecms/admin": "^1.0.0",
-    "vitessecms/core": "^1.1.0",
-    "vitessecms/media": "^1.0.0"
+    "vitessecms/core": "^1.2.0",
+    "vitessecms/media": "^1.1.0"
   }
 }
