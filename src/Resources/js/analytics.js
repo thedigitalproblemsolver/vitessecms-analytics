@@ -16,10 +16,7 @@ var initAnalytics = function () {
             url: location.protocol + '//' + location.hostname + '/analytics/register/exit/' + sessionStorage.getItem('AnalyticsId'),
             data: {'path': location.pathname},
             cache: false,
-            async: false,
-            success: function (response) {
-                console.log(response);
-            }
+            async: false
         });
     });
 };
