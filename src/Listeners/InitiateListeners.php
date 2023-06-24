@@ -5,6 +5,7 @@ namespace VitesseCms\Analytics\Listeners;
 use VitesseCms\Analytics\Enums\AnalyticsEntryEnum;
 use VitesseCms\Analytics\Enums\AnalyticsEnum;
 use VitesseCms\Analytics\Listeners\Admin\AdminMenuListener;
+use VitesseCms\Analytics\Listeners\Models\AnalyticsEntryListener;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Core\Interfaces\InitiateListenersInterface;
 use VitesseCms\Core\Interfaces\InjectableInterface;
