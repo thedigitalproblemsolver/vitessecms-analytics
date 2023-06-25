@@ -68,4 +68,12 @@ class BlackListEntryRepository
             endwhile;
         endif;
     }
+
+    public function count(?FindValueIterator $findValues = null, bool $hideUnpublished = true)
+    {
+        BlackListEntry::setFindPublished($hideUnpublished);
+        $this->parseFindValues($findValues);
+        
+        return BlackListEntry::count();
+    }
 }
