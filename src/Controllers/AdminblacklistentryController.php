@@ -5,12 +5,16 @@ namespace VitesseCms\Analytics\Controllers;
 use stdClass;
 use VitesseCms\Admin\Interfaces\AdminModelAddableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
+use VitesseCms\Admin\Interfaces\AdminModelEditableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelFormInterface;
 use VitesseCms\Admin\Interfaces\AdminModelListInterface;
+use VitesseCms\Admin\Interfaces\AdminModelPublishableInterface;
 use VitesseCms\Admin\Traits\TraitAdminModelAddable;
 use VitesseCms\Admin\Traits\TraitAdminModelDeletable;
+use VitesseCms\Admin\Traits\TraitAdminModelEditable;
 use VitesseCms\Admin\Traits\TraitAdminModelList;
-use VitesseCms\Admin\Traits\TraitAdminSave;
+use VitesseCms\Admin\Traits\TraitAdminModelPublishable;
+use VitesseCms\Admin\Traits\TraitAdminModelSave;
 use VitesseCms\Analytics\Enums\BlackListEntryEnum;
 use VitesseCms\Analytics\Forms\BlackListEntryForm;
 use VitesseCms\Analytics\Models\BlackListEntryIterator;
@@ -24,12 +28,16 @@ use VitesseCms\Database\Models\FindValueIterator;
 class AdminblacklistentryController extends AbstractControllerAdmin implements
     AdminModelListInterface,
     AdminModelDeletableInterface,
-    AdminModelAddableInterface
+    AdminModelAddableInterface,
+    AdminModelEditableInterface,
+    AdminModelPublishableInterface
 {
     use TraitAdminModelList;
     use TraitAdminModelDeletable;
     use TraitAdminModelAddable;
-    use TraitAdminSave;
+    use TraitAdminModelSave;
+    use TraitAdminModelEditable;
+    use TraitAdminModelPublishable;
 
     private readonly BlackListEntryRepository $blackListEntryRepository;
 
