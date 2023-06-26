@@ -12,6 +12,7 @@ class AdminMenuListener
     {
         $children = new AdminMenuNavBarChildren();
         $children->addChild('Analytics entries', 'admin/analytics/adminanalyticsentry/adminlist');
+        $children->addChild('Blacklist entries', 'admin/analytics/adminblacklistentry/adminlist');
         $adminMenu->addDropdown('Insights', $children);
     }
 }
