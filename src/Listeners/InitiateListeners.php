@@ -2,11 +2,12 @@
 
 namespace VitesseCms\Analytics\Listeners;
 
-use VitesseCms\Admin\Utils\AdminUtil;
 use VitesseCms\Analytics\Enums\AnalyticsEntryEnum;
 use VitesseCms\Analytics\Enums\AnalyticsEnum;
+use VitesseCms\Analytics\Enums\BlackListEntryEnum;
 use VitesseCms\Analytics\Listeners\Admin\AdminMenuListener;
 use VitesseCms\Analytics\Listeners\Models\AnalyticsEntryListener;
+use VitesseCms\Analytics\Listeners\Models\BlackListEntryListener;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
 use VitesseCms\Core\Interfaces\InitiateListenersInterface;
@@ -21,11 +22,10 @@ class InitiateListeners implements InitiateListenersInterface
         $di->eventsManager->attach(AssetsEnum::RENDER_LISTENER->value, new RenderListener($di->assets));
         $di->eventsManager->attach(AnalyticsEnum::ANALYTICS_ASSETS_LISTENER->value, new AssetsListener(
             $di->assets,
-            $di->configuration->getVendorNameDir(),
-            $di->request->getClientAddress(),
-            new BlackListEntryRepository(),
-            AdminUtil::isAdminPage()
-
+            $di->configuration->getVendorNameDir()
+        ));
+        $di->eventsManager->attach(BlackListEntryEnum::LISTENER->value, new BlackListEntryListener(
+            new BlackListEntryRepository()
         ));
         $di->eventsManager->attach(AnalyticsEntryEnum::LISTENER->value, new AnalyticsEntryListener(
             new AnalyticsEntryRepository()
