@@ -15,6 +15,7 @@ use VitesseCms\Analytics\Utils\ServerUtil;
 use VitesseCms\Core\AbstractControllerAdmin;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
+use VitesseCms\Sef\Utils\SefUtil;
 
 class RegisterController extends AbstractControllerAdmin
 {
@@ -52,7 +53,9 @@ class RegisterController extends AbstractControllerAdmin
 
     private function shouldHandleRequest(): bool
     {
-        return !$this->isAdminPage && $this->blackListEntryRepository->count(new FindValueIterator([new FindValue('ipAddress', $this->ipAddress)])) === 0;
+        return !$this->isAdminPage &&
+            $this->blackListEntryRepository->count(new FindValueIterator([new FindValue('ipAddress', $this->ipAddress)])) === 0 &&
+            !SefUtil::clientIsBot($this->request->getUserAgent());
     }
 
     public function exitAction(string $id): void
