@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace VitesseCms\Analytics\Listeners;
+namespace VitesseCms\Analytics\Listeners\Models;
 
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 
