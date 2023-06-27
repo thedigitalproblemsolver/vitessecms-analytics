@@ -25,8 +25,8 @@
     "php": ">=8.1",
     "ext-phalcon": "5.1.4",
     "ext-mongodb": "*",
-    "vitessecms/admin": "^1.1.0",
-    "vitessecms/core": "^1.2.0",
+    "vitessecms/admin": "^1.2.0",
+    "vitessecms/core": "^1.2.1",
     "vitessecms/media": "^1.1.0",
     "vitessecms/sef": "^1.0.5"
   }
