@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Analytics\Controllers;
 
+use ArrayIterator;
 use stdClass;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelListInterface;
@@ -10,7 +11,6 @@ use VitesseCms\Admin\Traits\TraitAdminModelDeletable;
 use VitesseCms\Admin\Traits\TraitAdminModelList;
 use VitesseCms\Admin\Traits\TraitAdminModelReadOnly;
 use VitesseCms\Analytics\Enums\AnalyticsEntryEnum;
-use VitesseCms\Analytics\Models\AnalyticsEntryIterator;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Core\AbstractControllerAdmin;
 use VitesseCms\Database\AbstractCollection;
@@ -39,16 +39,15 @@ class AdminanalyticsentryController extends AbstractControllerAdmin implements
 
         $this->analyticsEntryRepository = $this->eventsManager->fire(AnalyticsEntryEnum::GET_REPOSITORY->value, new stdClass());
         $this->languageService = $this->eventsManager->fire(LanguageEnum::ATTACH_SERVICE_LISTENER->value, new stdClass());
-        $this->isReadOnly = true;
         $this->isPreviewable = true;
     }
 
-    public function getModelList(?FindValueIterator $findValueIterator, int $limit = 25): AnalyticsEntryIterator
+    public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
     {
         return $this->analyticsEntryRepository->findAll(
             $findValueIterator,
             false,
-            $limit,
+            99999,
             new FindOrderIterator([new FindOrder('createdAt', -1)])
         );
     }
