@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Analytics\Controllers;
 
+use ArrayIterator;
 use stdClass;
 use VitesseCms\Admin\Interfaces\AdminModelAddableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
@@ -17,7 +18,6 @@ use VitesseCms\Admin\Traits\TraitAdminModelPublishable;
 use VitesseCms\Admin\Traits\TraitAdminModelSave;
 use VitesseCms\Analytics\Enums\BlackListEntryEnum;
 use VitesseCms\Analytics\Forms\BlackListEntryForm;
-use VitesseCms\Analytics\Models\BlackListEntryIterator;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
 use VitesseCms\Core\AbstractControllerAdmin;
 use VitesseCms\Database\AbstractCollection;
@@ -48,12 +48,12 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
         $this->blackListEntryRepository = $this->eventsManager->fire(BlackListEntryEnum::GET_REPOSITORY->value, new stdClass());
     }
 
-    public function getModelList(?FindValueIterator $findValueIterator, int $limit = 25): BlackListEntryIterator
+    public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
     {
         return $this->blackListEntryRepository->findAll(
             $findValueIterator,
             false,
-            $limit,
+            99999,
             new FindOrderIterator([new FindOrder('createdAt', -1)])
         );
     }
