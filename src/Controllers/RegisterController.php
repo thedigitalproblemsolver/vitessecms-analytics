@@ -46,9 +46,11 @@ class RegisterController extends AbstractControllerAdmin
                 $this->request->getUserAgent()
             );
             $analyticsEntry->save();
-        }
+            $this->jsonResponse(['id' => (string)$analyticsEntry->getId()]);
 
-        $this->viewService->disable();
+        } else {
+            $this->viewService->disable();
+        }
     }
 
     private function shouldHandleRequest(): bool
