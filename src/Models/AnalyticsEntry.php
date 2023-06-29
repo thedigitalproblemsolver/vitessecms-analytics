@@ -13,6 +13,7 @@ class AnalyticsEntry extends AbstractCollection
     public string $operatingSystem;
     public string $browser;
     public string $browserVersion;
+    public string $referer;
 
     public function getNameField(?string $languageShort = null): string
     {
