@@ -1,8 +1,9 @@
 var initAnalytics = function () {
+    console.log();
     $.ajax({
         type: 'POST',
         url: location.protocol + '//' + location.hostname + '/analytics/register/entry',
-        data: {'path': location.pathname},
+        data: {'path': location.pathname, 'referrer': document.referrer},
         cache: false,
         async: false,
         success: function (response) {
