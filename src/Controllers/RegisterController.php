@@ -43,7 +43,8 @@ class RegisterController extends AbstractControllerAdmin
                 ServerUtil::getOperatingSystemFromUserAgent($this->request->getUserAgent()),
                 ServerUtil::getBrowserNameFromUserAgent($this->request->getUserAgent()),
                 ServerUtil::getBrowserVersionFromUserAgent($this->request->getUserAgent()),
-                $this->request->getUserAgent()
+                $this->request->getUserAgent(),
+                $this->request->getPost('referrer')
             );
             $analyticsEntry->save();
             $this->jsonResponse(['id' => (string)$analyticsEntry->getId()]);

@@ -15,6 +15,7 @@ class AnalyticsEntryFactory
         string   $browser,
         string   $browserVersion,
         string   $userAgent,
+        string   $referer,
         bool     $published = true
     ): AnalyticsEntry
     {
@@ -26,6 +27,7 @@ class AnalyticsEntryFactory
         $analyticsEntry->browserVersion = $browserVersion;
         $analyticsEntry->published = $published;
         $analyticsEntry->userAgent = $userAgent;
+        $analyticsEntry->referer = $referer;
 
         return $analyticsEntry;
     }
