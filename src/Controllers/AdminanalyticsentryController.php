@@ -9,6 +9,7 @@ use VitesseCms\Admin\Interfaces\AdminModelListInterface;
 use VitesseCms\Admin\Interfaces\AdminModelReadOnlyInterface;
 use VitesseCms\Admin\Traits\TraitAdminModelDeletable;
 use VitesseCms\Admin\Traits\TraitAdminModelList;
+use VitesseCms\Admin\Traits\TraitAdminModelPreviewable;
 use VitesseCms\Admin\Traits\TraitAdminModelReadOnly;
 use VitesseCms\Analytics\Enums\AnalyticsEntryEnum;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
@@ -28,10 +29,10 @@ class AdminanalyticsentryController extends AbstractControllerAdmin implements
     use TraitAdminModelList;
     use TraitAdminModelDeletable;
     use TraitAdminModelReadOnly;
+    use TraitAdminModelPreviewable;
 
     private readonly AnalyticsEntryRepository $analyticsEntryRepository;
     private readonly LanguageService $languageService;
-    private readonly bool $isPreviewable;
 
     public function OnConstruct()
     {
@@ -39,7 +40,6 @@ class AdminanalyticsentryController extends AbstractControllerAdmin implements
 
         $this->analyticsEntryRepository = $this->eventsManager->fire(AnalyticsEntryEnum::GET_REPOSITORY->value, new stdClass());
         $this->languageService = $this->eventsManager->fire(LanguageEnum::ATTACH_SERVICE_LISTENER->value, new stdClass());
-        $this->isPreviewable = true;
     }
 
     public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
