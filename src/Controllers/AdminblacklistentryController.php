@@ -18,6 +18,7 @@ use VitesseCms\Admin\Traits\TraitAdminModelPublishable;
 use VitesseCms\Admin\Traits\TraitAdminModelSave;
 use VitesseCms\Analytics\Enums\BlackListEntryEnum;
 use VitesseCms\Analytics\Forms\BlackListEntryForm;
+use VitesseCms\Analytics\Models\BlackListEntry;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
 use VitesseCms\Core\AbstractControllerAdmin;
 use VitesseCms\Database\AbstractCollection;
@@ -32,12 +33,12 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
     AdminModelEditableInterface,
     AdminModelPublishableInterface
 {
-    use TraitAdminModelList;
-    use TraitAdminModelDeletable;
-    use TraitAdminModelAddable;
-    use TraitAdminModelSave;
-    use TraitAdminModelEditable;
-    use TraitAdminModelPublishable;
+    use TraitAdminModelList,
+        TraitAdminModelDeletable,
+        TraitAdminModelAddable,
+        TraitAdminModelSave,
+        TraitAdminModelEditable,
+        TraitAdminModelPublishable;
 
     private readonly BlackListEntryRepository $blackListEntryRepository;
 
@@ -60,7 +61,10 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
 
     public function getModel(string $id): ?AbstractCollection
     {
-        return $this->blackListEntryRepository->getById($id, false);
+        return match ($id) {
+            'new' => new BlackListEntry(),
+            default => $this->blackListEntryRepository->getById($id, false)
+        };
     }
 
     public function getModelForm(): AdminModelFormInterface
