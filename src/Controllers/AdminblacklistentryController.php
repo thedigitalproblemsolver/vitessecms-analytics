@@ -33,12 +33,12 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
     AdminModelEditableInterface,
     AdminModelPublishableInterface
 {
-    use TraitAdminModelList;
-    use TraitAdminModelDeletable;
-    use TraitAdminModelAddable;
-    use TraitAdminModelSave;
-    use TraitAdminModelEditable;
-    use TraitAdminModelPublishable;
+    use TraitAdminModelList,
+        TraitAdminModelDeletable,
+        TraitAdminModelAddable,
+        TraitAdminModelSave,
+        TraitAdminModelEditable,
+        TraitAdminModelPublishable;
 
     private readonly BlackListEntryRepository $blackListEntryRepository;
 
