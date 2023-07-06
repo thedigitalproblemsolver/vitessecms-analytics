@@ -26,10 +26,10 @@ class AdminanalyticsentryController extends AbstractControllerAdmin implements
     AdminModelDeletableInterface,
     AdminModelReadOnlyInterface
 {
-    use TraitAdminModelList;
-    use TraitAdminModelDeletable;
-    use TraitAdminModelReadOnly;
-    use TraitAdminModelPreviewable;
+    use TraitAdminModelList,
+        TraitAdminModelDeletable,
+        TraitAdminModelReadOnly,
+        TraitAdminModelPreviewable;
 
     private readonly AnalyticsEntryRepository $analyticsEntryRepository;
     private readonly LanguageService $languageService;
