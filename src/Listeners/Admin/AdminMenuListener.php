@@ -11,8 +11,8 @@ class AdminMenuListener
     public function AddChildren(Event $event, AdminMenu $adminMenu): void
     {
         $children = new AdminMenuNavBarChildren();
-        $children->addChild('Analytics entries', 'admin/analytics/adminanalyticsentry/adminlist');
-        $children->addChild('Blacklist entries', 'admin/analytics/adminblacklistentry/adminlist');
+        $children->addChild('Pageviews', 'admin/analytics/adminanalyticsentry/adminlist');
+        $children->addChild('Blacklist', 'admin/analytics/adminblacklistentry/adminlist');
         $adminMenu->addDropdown('Insights', $children);
     }
 }
