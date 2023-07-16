@@ -2,10 +2,13 @@
 
 namespace VitesseCms\Analytics\Listeners;
 
+use VitesseCms\Admin\Utils\AdminUtil;
 use VitesseCms\Analytics\Enums\AnalyticsEntryEnum;
 use VitesseCms\Analytics\Enums\AnalyticsEnum;
 use VitesseCms\Analytics\Enums\BlackListEntryEnum;
+use VitesseCms\Analytics\Enums\RegisterEnum;
 use VitesseCms\Analytics\Listeners\Admin\AdminMenuListener;
+use VitesseCms\Analytics\Listeners\Controllers\RegisterControllerListener;
 use VitesseCms\Analytics\Listeners\Models\AnalyticsEntryListener;
 use VitesseCms\Analytics\Listeners\Models\BlackListEntryListener;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
@@ -29,6 +32,12 @@ class InitiateListeners implements InitiateListenersInterface
         ));
         $di->eventsManager->attach(AnalyticsEntryEnum::LISTENER->value, new AnalyticsEntryListener(
             new AnalyticsEntryRepository()
+        ));
+        $di->eventsManager->attach(RegisterEnum::LISTENER->value, new RegisterControllerListener(
+            $di->request,
+            new AnalyticsEntryRepository(),
+            new BlackListEntryRepository(),
+            AdminUtil::isAdminPage()
         ));
     }
 }
