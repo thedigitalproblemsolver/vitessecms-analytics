@@ -28,6 +28,6 @@
     "vitessecms/admin": "^1.4.0",
     "vitessecms/core": "^1.3.4",
     "vitessecms/media": "^1.1.1",
-    "vitessecms/sef": "^1.0.8"
+    "vitessecms/sef": "^1.0.9"
   }
 }
