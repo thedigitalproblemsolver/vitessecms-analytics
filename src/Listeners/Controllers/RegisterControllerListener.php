@@ -8,6 +8,7 @@ use Phalcon\Http\Request;
 use Phalcon\Incubator\MongoDB\Helper\Mongo;
 use VitesseCms\Analytics\DTO\RegisterExitDTO;
 use VitesseCms\Analytics\Factories\AnalyticsEntryFactory;
+use VitesseCms\Analytics\Factories\WebCrawlerEntryFactory;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
 use VitesseCms\Analytics\Utils\ServerUtil;
@@ -28,22 +29,24 @@ class RegisterControllerListener
 
     public function handleEntry(): ?string
     {
-        if ($this->shouldHandleRequest()) {
-            $analyticsEntry = AnalyticsEntryFactory::create(
-                $this->request->getPost('path'),
-                new DateTime(),
-                ServerUtil::getOperatingSystemFromUserAgent($this->request->getUserAgent()),
-                ServerUtil::getBrowserNameFromUserAgent($this->request->getUserAgent()),
-                ServerUtil::getBrowserVersionFromUserAgent($this->request->getUserAgent()),
-                $this->request->getUserAgent(),
-                $this->request->getPost('referrer')
-            );
-            $analyticsEntry->save();
+        if (SefUtil::clientIsBot($this->request->getUserAgent())) {
+            $this->parseWebCrawlerVisit();
+        } else if ($this->shouldHandleRequest()) {
+            return $this->parsePageView();
 
-            return (string)$analyticsEntry->getId();
         }
 
         return null;
+    }
+
+    private function parseWebCrawlerVisit(): void
+    {
+        WebCrawlerEntryFactory::create(
+            $this->request->getPost('path'),
+            new DateTime(),
+            $this->request->getUserAgent(),
+            $this->request->getPost('referrer')
+        )->save();
     }
 
     private function shouldHandleRequest(): bool
@@ -51,6 +54,22 @@ class RegisterControllerListener
         return !$this->isAdminPage &&
             $this->blackListEntryRepository->count(new FindValueIterator([new FindValue('ipAddress', $this->request->getClientAddress())])) === 0 &&
             !SefUtil::clientIsBot($this->request->getUserAgent());
+    }
+
+    private function parsePageView(): string
+    {
+        $analyticsEntry = AnalyticsEntryFactory::create(
+            $this->request->getPost('path'),
+            new DateTime(),
+            ServerUtil::getOperatingSystemFromUserAgent($this->request->getUserAgent()),
+            ServerUtil::getBrowserNameFromUserAgent($this->request->getUserAgent()),
+            ServerUtil::getBrowserVersionFromUserAgent($this->request->getUserAgent()),
+            $this->request->getUserAgent(),
+            $this->request->getPost('referrer')
+        );
+        $analyticsEntry->save();
+
+        return (string)$analyticsEntry->getId();
     }
 
     public function handleExit(Event $event, RegisterExitDTO $registerExitDTO): void
