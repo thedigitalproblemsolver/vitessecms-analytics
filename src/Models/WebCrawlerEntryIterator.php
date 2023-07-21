@@ -4,14 +4,14 @@ namespace VitesseCms\Analytics\Models;
 
 use ArrayIterator;
 
-class BlackListEntryIterator extends ArrayIterator
+class WebCrawlerEntryIterator extends ArrayIterator
 {
     public function __construct(array $items)
     {
         parent::__construct($items);
     }
 
-    public function current(): BlackListEntry
+    public function current(): WebCrawlerEntry
     {
         return parent::current();
     }
