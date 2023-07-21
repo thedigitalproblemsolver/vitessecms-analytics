@@ -6,9 +6,9 @@ use ArrayIterator;
 
 class AnalyticsEntryIterator extends ArrayIterator
 {
-    public function __construct(array $products)
+    public function __construct(array $items)
     {
-        parent::__construct($products);
+        parent::__construct($items);
     }
 
     public function current(): AnalyticsEntry
