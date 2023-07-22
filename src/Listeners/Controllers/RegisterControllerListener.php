@@ -6,8 +6,10 @@ use DateTime;
 use Phalcon\Events\Event;
 use Phalcon\Http\Request;
 use Phalcon\Incubator\MongoDB\Helper\Mongo;
+use VitesseCms\Analytics\DTO\ClickEntryDTO;
 use VitesseCms\Analytics\DTO\RegisterExitDTO;
 use VitesseCms\Analytics\Factories\AnalyticsEntryFactory;
+use VitesseCms\Analytics\Factories\ClickEntryFactory;
 use VitesseCms\Analytics\Factories\WebCrawlerEntryFactory;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
@@ -80,6 +82,19 @@ class RegisterControllerListener
                 $analyticsEntry->exitTime = Mongo::convertDatetime(new DateTime());
                 $analyticsEntry->save();
             }
+        }
+    }
+
+    public function handleClick(Event $event, ClickEntryDTO $clickEntryDTO): void
+    {
+        if ($this->shouldHandleRequest()) {
+            ClickEntryFactory::create(
+                $clickEntryDTO->path,
+                new DateTime(),
+                $clickEntryDTO->category,
+                $clickEntryDTO->target,
+                $clickEntryDTO->action
+            )->save();
         }
     }
 }
