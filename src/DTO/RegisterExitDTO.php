@@ -4,7 +4,7 @@ namespace VitesseCms\Analytics\DTO;
 
 final class RegisterExitDTO
 {
-    public function __construct(public readonly string $id)
+    final public function __construct(public readonly string $id)
     {
     }
 }
