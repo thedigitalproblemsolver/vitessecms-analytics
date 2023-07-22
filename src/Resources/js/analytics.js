@@ -1,5 +1,4 @@
 var initAnalytics = function () {
-    console.log();
     $.ajax({
         type: 'POST',
         url: location.protocol + '//' + location.hostname + '/analytics/register/entry',
@@ -20,6 +19,23 @@ var initAnalytics = function () {
             async: true
         });
     });
+
+    document.querySelectorAll('.clickAction').forEach(function (element) {
+        element.onclick = function () {
+            $.ajax({
+                method: 'post',
+                url: location.protocol + '//' + location.hostname + '/analytics/register/click/',
+                data: {
+                    'path': location.pathname,
+                    'target': this.getAttribute('href'),
+                    'category': this.getAttribute('data-category'),
+                    'action': this.getAttribute('data-action')
+                },
+                cache: false,
+                async: true
+            });
+        }
+    })
 };
 
 inits.push(initAnalytics);

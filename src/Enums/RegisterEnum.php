@@ -7,4 +7,5 @@ enum RegisterEnum: string
     case LISTENER = 'RegisterListener';
     case EVENT_HANDLE_EXIT = 'RegisterListener:handleExit';
     case EVENT_HANDLE_ENTRY = 'RegisterListener:handleEntry';
+    case EVENT_HANDLE_CLICK = 'RegisterListener:handleClick';
 }
