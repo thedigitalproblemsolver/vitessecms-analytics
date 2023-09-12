@@ -7,9 +7,4 @@ use VitesseCms\Database\AbstractCollection;
 class BlackListEntry extends AbstractCollection
 {
     public string $ipAddress;
-
-    public function getNameField(?string $languageShort = null): string
-    {
-        return $this->ipAddress ?? '';
-    }
 }
