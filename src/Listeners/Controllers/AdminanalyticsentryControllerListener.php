@@ -11,6 +11,7 @@ class AdminanalyticsentryControllerListener
     public function adminListFilter(Event $event, AdminanalyticsentryController $controller, AdminlistFormInterface $form): void
     {
         $form->addText('%CORE_NAME%', 'filter[slug]');
+        $form->addText('%ANALYTICS_REFERER%', 'filter[referer]');
         $form->addText('%ANALYTICS_USER_AGENT%', 'filter[userAgent]');
     }
 }
