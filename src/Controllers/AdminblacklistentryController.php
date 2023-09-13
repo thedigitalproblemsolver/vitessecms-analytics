@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
@@ -33,12 +34,12 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
     AdminModelEditableInterface,
     AdminModelPublishableInterface
 {
-    use TraitAdminModelList,
-        TraitAdminModelDeletable,
-        TraitAdminModelAddable,
-        TraitAdminModelSave,
-        TraitAdminModelEditable,
-        TraitAdminModelPublishable;
+    use TraitAdminModelAddable;
+    use TraitAdminModelDeletable;
+    use TraitAdminModelEditable;
+    use TraitAdminModelList;
+    use TraitAdminModelPublishable;
+    use TraitAdminModelSave;
 
     private readonly BlackListEntryRepository $blackListEntryRepository;
 
@@ -46,7 +47,10 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
     {
         parent::OnConstruct();
 
-        $this->blackListEntryRepository = $this->eventsManager->fire(BlackListEntryEnum::GET_REPOSITORY->value, new stdClass());
+        $this->blackListEntryRepository = $this->eventsManager->fire(
+            BlackListEntryEnum::GET_REPOSITORY->value,
+            new stdClass()
+        );
     }
 
     public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator

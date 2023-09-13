@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
@@ -24,10 +25,10 @@ class AdminclickentryController extends AbstractControllerAdmin implements
     AdminModelDeletableInterface,
     AdminModelReadOnlyInterface
 {
-    use TraitAdminModelList,
-        TraitAdminModelDeletable,
-        TraitAdminModelReadOnly,
-        TraitAdminModelPreviewable;
+    use TraitAdminModelDeletable;
+    use TraitAdminModelList;
+    use TraitAdminModelPreviewable;
+    use TraitAdminModelReadOnly;
 
     private readonly ClickEntryRepository $clickEntryRepository;
 

@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
@@ -26,10 +27,10 @@ class AdminanalyticsentryController extends AbstractControllerAdmin implements
     AdminModelDeletableInterface,
     AdminModelReadOnlyInterface
 {
-    use TraitAdminModelList,
-        TraitAdminModelDeletable,
-        TraitAdminModelReadOnly,
-        TraitAdminModelPreviewable;
+    use TraitAdminModelDeletable;
+    use TraitAdminModelList;
+    use TraitAdminModelPreviewable;
+    use TraitAdminModelReadOnly;
 
     private readonly AnalyticsEntryRepository $analyticsEntryRepository;
     private readonly LanguageService $languageService;
@@ -38,8 +39,14 @@ class AdminanalyticsentryController extends AbstractControllerAdmin implements
     {
         parent::OnConstruct();
 
-        $this->analyticsEntryRepository = $this->eventsManager->fire(AnalyticsEntryEnum::GET_REPOSITORY->value, new stdClass());
-        $this->languageService = $this->eventsManager->fire(LanguageEnum::ATTACH_SERVICE_LISTENER->value, new stdClass());
+        $this->analyticsEntryRepository = $this->eventsManager->fire(
+            AnalyticsEntryEnum::GET_REPOSITORY->value,
+            new stdClass()
+        );
+        $this->languageService = $this->eventsManager->fire(
+            LanguageEnum::ATTACH_SERVICE_LISTENER->value,
+            new stdClass()
+        );
     }
 
     public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
