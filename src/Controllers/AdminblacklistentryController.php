@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
@@ -58,7 +59,7 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
         return $this->blackListEntryRepository->findAll(
             $findValueIterator,
             false,
-            99999,
+            null,
             new FindOrderIterator([new FindOrder('createdAt', -1)])
         );
     }
