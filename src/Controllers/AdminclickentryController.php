@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
@@ -44,7 +45,7 @@ class AdminclickentryController extends AbstractControllerAdmin implements
         return $this->clickEntryRepository->findAll(
             $findValueIterator,
             false,
-            99999,
+            null,
             new FindOrderIterator([new FindOrder('createdAt', -1)])
         );
     }
