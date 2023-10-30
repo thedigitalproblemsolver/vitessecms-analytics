@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Listeners;
 
@@ -11,6 +13,8 @@ use VitesseCms\Analytics\Listeners\Admin\AdminMenuListener;
 use VitesseCms\Analytics\Listeners\Controllers\RegisterControllerListener;
 use VitesseCms\Analytics\Listeners\Models\AnalyticsEntryListener;
 use VitesseCms\Analytics\Listeners\Models\BlackListEntryListener;
+use VitesseCms\Analytics\Models\AnalyticsEntry;
+use VitesseCms\Analytics\Models\BlackListEntry;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
 use VitesseCms\Core\Interfaces\InitiateListenersInterface;
@@ -23,21 +27,33 @@ class InitiateListeners implements InitiateListenersInterface
     {
         $di->eventsManager->attach('adminMenu', new AdminMenuListener());
         $di->eventsManager->attach(AssetsEnum::RENDER_LISTENER->value, new RenderListener($di->assets));
-        $di->eventsManager->attach(AnalyticsEnum::ANALYTICS_ASSETS_LISTENER->value, new AssetsListener(
-            $di->assets,
-            $di->configuration->getVendorNameDir()
-        ));
-        $di->eventsManager->attach(BlackListEntryEnum::LISTENER->value, new BlackListEntryListener(
-            new BlackListEntryRepository()
-        ));
-        $di->eventsManager->attach(AnalyticsEntryEnum::LISTENER->value, new AnalyticsEntryListener(
-            new AnalyticsEntryRepository()
-        ));
-        $di->eventsManager->attach(RegisterEnum::LISTENER->value, new RegisterControllerListener(
-            $di->request,
-            new AnalyticsEntryRepository(),
-            new BlackListEntryRepository(),
-            AdminUtil::isAdminPage()
-        ));
+        $di->eventsManager->attach(
+            AnalyticsEnum::ANALYTICS_ASSETS_LISTENER->value,
+            new AssetsListener(
+                $di->assets,
+                $di->configuration->getVendorNameDir()
+            )
+        );
+        $di->eventsManager->attach(
+            BlackListEntryEnum::LISTENER->value,
+            new BlackListEntryListener(
+                new BlackListEntryRepository(BlackListEntry::class)
+            )
+        );
+        $di->eventsManager->attach(
+            AnalyticsEntryEnum::LISTENER->value,
+            new AnalyticsEntryListener(
+                new AnalyticsEntryRepository(AnalyticsEntry::class)
+            )
+        );
+        $di->eventsManager->attach(
+            RegisterEnum::LISTENER->value,
+            new RegisterControllerListener(
+                $di->request,
+                new AnalyticsEntryRepository(AnalyticsEntry::class),
+                new BlackListEntryRepository(BlackListEntry::class),
+                AdminUtil::isAdminPage()
+            )
+        );
     }
 }

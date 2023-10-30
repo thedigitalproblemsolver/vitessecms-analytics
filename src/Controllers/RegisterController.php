@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
@@ -30,12 +32,15 @@ class RegisterController extends AbstractControllerAdmin
 
     public function clickAction(): void
     {
-        $this->eventsManager->fire(RegisterEnum::EVENT_HANDLE_CLICK->value, new ClickEntryDTO(
-            $this->request->getPost('path', 'string'),
-            $this->request->getPost('target', 'string'),
-            $this->request->getPost('category', 'string'),
-            $this->request->getPost('action', 'string')
-        ));
+        $this->eventsManager->fire(
+            RegisterEnum::EVENT_HANDLE_CLICK->value,
+            new ClickEntryDTO(
+                $this->request->getPost('path', 'string'),
+                $this->request->getPost('target', 'string'),
+                $this->request->getPost('category', 'string'),
+                $this->request->getPost('action', 'string')
+            )
+        );
 
         $this->viewService->disable();
     }
