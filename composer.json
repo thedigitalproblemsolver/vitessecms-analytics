@@ -13,7 +13,7 @@
   "authors": [
     {
       "name": "Jasper Jaklofsky",
-      "email": "info@thedigitalproblemsolver.com"
+      "email": "info@thedigitalproblemsolver.nl"
     }
   ],
   "autoload": {
@@ -29,6 +29,6 @@
     "vitessecms/core": "^1.7.1",
     "vitessecms/media": "^1.4.1",
     "vitessecms/sef": "^1.2.0",
-    "vitessecms/database": "^1.4.0"
+    "vitessecms/database": "^1.4.1"
   }
 }

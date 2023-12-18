@@ -39,13 +39,15 @@ class LatestViews extends AbstractBlockModel
     public function getTemplateParams(Block $block): array
     {
         $params = parent::getTemplateParams($block);
+        $limit = $block->getInt('itemsLimit');
+
 
         $AnalyticsEntries = $this->analyticsEntryRepository->findAll(
             new FindValueIterator([
                 new FindValue('slug', '/', FindValueTypeEnum::NOT->value)
             ]),
             true,
-            30,
+            $limit * 2,
             new FindOrderIterator([new FindOrder('createdAt', -1)])
         );
 
@@ -53,7 +55,7 @@ class LatestViews extends AbstractBlockModel
         $parsed = [];
         while ($AnalyticsEntries->valid()) {
             $AnalyticsEntry = $AnalyticsEntries->current();
-            if (!isset($parsed[$AnalyticsEntry->slug]) && count($items) < 12) {
+            if (!isset($parsed[$AnalyticsEntry->slug]) && count($items) < $limit) {
                 $item = $this->itemRepository->findFirst(
                     new FindValueIterator(
                         [

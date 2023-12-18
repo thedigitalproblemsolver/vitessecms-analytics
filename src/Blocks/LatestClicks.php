@@ -37,11 +37,12 @@ class LatestClicks extends AbstractBlockModel
     public function getTemplateParams(Block $block): array
     {
         $params = parent::getTemplateParams($block);
+        $limit = $block->getInt('itemsLimit');
 
         $clickEntries = $this->clickEntryRepository->findAll(
             null,
             true,
-            30,
+            $limit * 2,
             new FindOrderIterator([new FindOrder('createdAt', -1)])
         );
 
@@ -49,7 +50,7 @@ class LatestClicks extends AbstractBlockModel
         $parsed = [];
         while ($clickEntries->valid()) {
             $clickEntry = $clickEntries->current();
-            if (!isset($parsed[$clickEntry->slug]) && count($items) < 12) {
+            if (!isset($parsed[$clickEntry->slug]) && count($items) < $limit) {
                 $items[] = $this->itemRepository->findFirst(
                     new FindValueIterator(
                         [
