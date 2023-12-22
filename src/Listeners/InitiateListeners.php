@@ -5,22 +5,12 @@ declare(strict_types=1);
 namespace VitesseCms\Analytics\Listeners;
 
 use VitesseCms\Admin\Utils\AdminUtil;
-use VitesseCms\Analytics\Enums\AnalyticsEntryEnum;
 use VitesseCms\Analytics\Enums\AnalyticsEnum;
-use VitesseCms\Analytics\Enums\BlackListEntryEnum;
-use VitesseCms\Analytics\Enums\ClickEntryEnum;
 use VitesseCms\Analytics\Enums\RegisterEnum;
 use VitesseCms\Analytics\Listeners\Admin\AdminMenuListener;
 use VitesseCms\Analytics\Listeners\Controllers\RegisterControllerListener;
-use VitesseCms\Analytics\Listeners\Models\AnalyticsEntryListener;
-use VitesseCms\Analytics\Listeners\Models\BlackListEntryListener;
-use VitesseCms\Analytics\Listeners\Models\ClickEntryListener;
-use VitesseCms\Analytics\Models\AnalyticsEntry;
-use VitesseCms\Analytics\Models\BlackListEntry;
-use VitesseCms\Analytics\Models\ClickEntry;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
-use VitesseCms\Analytics\Repositories\ClickEntryRepository;
 use VitesseCms\Core\Interfaces\InitiateListenersInterface;
 use VitesseCms\Core\Interfaces\InjectableInterface;
 use VitesseCms\Media\Enums\AssetsEnum;
@@ -39,30 +29,12 @@ class InitiateListeners implements InitiateListenersInterface
             )
         );
         $di->eventsManager->attach(
-            BlackListEntryEnum::LISTENER->value,
-            new BlackListEntryListener(
-                new BlackListEntryRepository(BlackListEntry::class)
-            )
-        );
-        $di->eventsManager->attach(
-            AnalyticsEntryEnum::LISTENER->value,
-            new AnalyticsEntryListener(
-                new AnalyticsEntryRepository(AnalyticsEntry::class)
-            )
-        );
-        $di->eventsManager->attach(
             RegisterEnum::LISTENER->value,
             new RegisterControllerListener(
                 $di->request,
-                new AnalyticsEntryRepository(AnalyticsEntry::class),
-                new BlackListEntryRepository(BlackListEntry::class),
+                new AnalyticsEntryRepository(),
+                new BlackListEntryRepository(),
                 AdminUtil::isAdminPage()
-            )
-        );
-        $di->eventsManager->attach(
-            ClickEntryEnum::LISTENER->value,
-            new ClickEntryListener(
-                new ClickEntryRepository(ClickEntry::class)
             )
         );
     }

@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace VitesseCms\Analytics\Blocks;
 
 use Phalcon\Di\Di;
-use stdClass;
-use VitesseCms\Analytics\Enums\AnalyticsEntryEnum;
+use VitesseCms\Analytics\Models\AnalyticsEntry;
 use VitesseCms\Analytics\Repositories\AnalyticsEntryRepository;
 use VitesseCms\Block\AbstractBlockModel;
 use VitesseCms\Block\Models\Block;
-use VitesseCms\Content\Enum\ItemEnum;
+use VitesseCms\Content\Models\Item;
 use VitesseCms\Content\Repositories\ItemRepository;
 use VitesseCms\Core\Services\ViewService;
+use VitesseCms\Database\DTO\GetRepositoryDTO;
 use VitesseCms\Database\Enums\FindValueTypeEnum;
+use VitesseCms\Database\Enums\RepositoryEnum;
 use VitesseCms\Database\Models\FindOrder;
 use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValue;
@@ -28,12 +29,15 @@ class LatestViews extends AbstractBlockModel
     {
         parent::__construct($view, $di);
 
-        $this->analyticsEntryRepository = $di->get('eventsManager')->fire(
-            AnalyticsEntryEnum::GET_REPOSITORY->value,
-            new stdClass()
+        $this->analyticsEntryRepository = $this->eventsManager->fire(
+            RepositoryEnum::GET_REPOSITORY->value,
+            new GetRepositoryDTO(AnalyticsEntry::class)
         );
 
-        $this->itemRepository = $di->get('eventsManager')->fire(ItemEnum::GET_REPOSITORY, new stdClass());
+        $this->itemRepository = $this->eventsManager->fire(
+            RepositoryEnum::GET_REPOSITORY->value,
+            new GetRepositoryDTO(Item::class)
+        );
     }
 
     public function getTemplateParams(Block $block): array
