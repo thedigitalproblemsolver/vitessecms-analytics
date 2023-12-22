@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace VitesseCms\Analytics\Controllers;
 
 use ArrayIterator;
-use stdClass;
 use VitesseCms\Admin\Interfaces\AdminModelAddableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelEditableInterface;
@@ -18,12 +17,13 @@ use VitesseCms\Admin\Traits\TraitAdminModelEditable;
 use VitesseCms\Admin\Traits\TraitAdminModelList;
 use VitesseCms\Admin\Traits\TraitAdminModelPublishable;
 use VitesseCms\Admin\Traits\TraitAdminModelSave;
-use VitesseCms\Analytics\Enums\BlackListEntryEnum;
 use VitesseCms\Analytics\Forms\BlackListEntryForm;
 use VitesseCms\Analytics\Models\BlackListEntry;
 use VitesseCms\Analytics\Repositories\BlackListEntryRepository;
 use VitesseCms\Core\AbstractControllerAdmin;
 use VitesseCms\Database\AbstractCollection;
+use VitesseCms\Database\DTO\GetRepositoryDTO;
+use VitesseCms\Database\Enums\RepositoryEnum;
 use VitesseCms\Database\Models\FindOrder;
 use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValueIterator;
@@ -49,8 +49,8 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
         parent::OnConstruct();
 
         $this->blackListEntryRepository = $this->eventsManager->fire(
-            BlackListEntryEnum::GET_REPOSITORY->value,
-            new stdClass()
+            RepositoryEnum::GET_REPOSITORY->value,
+            new GetRepositoryDTO(BlackListEntry::class)
         );
     }
 
