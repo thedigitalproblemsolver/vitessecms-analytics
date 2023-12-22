@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace VitesseCms\Analytics\Controllers;
 
 use ArrayIterator;
-use stdClass;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelListInterface;
 use VitesseCms\Admin\Interfaces\AdminModelReadOnlyInterface;
@@ -13,10 +12,12 @@ use VitesseCms\Admin\Traits\TraitAdminModelDeletable;
 use VitesseCms\Admin\Traits\TraitAdminModelList;
 use VitesseCms\Admin\Traits\TraitAdminModelPreviewable;
 use VitesseCms\Admin\Traits\TraitAdminModelReadOnly;
-use VitesseCms\Analytics\Enums\ClickEntryEnum;
+use VitesseCms\Analytics\Models\ClickEntry;
 use VitesseCms\Analytics\Repositories\ClickEntryRepository;
 use VitesseCms\Core\AbstractControllerAdmin;
 use VitesseCms\Database\AbstractCollection;
+use VitesseCms\Database\DTO\GetRepositoryDTO;
+use VitesseCms\Database\Enums\RepositoryEnum;
 use VitesseCms\Database\Models\FindOrder;
 use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValueIterator;
@@ -37,7 +38,10 @@ class AdminclickentryController extends AbstractControllerAdmin implements
     {
         parent::OnConstruct();
 
-        $this->clickEntryRepository = $this->eventsManager->fire(ClickEntryEnum::GET_REPOSITORY->value, new stdClass());
+        $this->clickEntryRepository = $this->eventsManager->fire(
+            RepositoryEnum::GET_REPOSITORY->value,
+            new GetRepositoryDTO(ClickEntry::class)
+        );
     }
 
     public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
