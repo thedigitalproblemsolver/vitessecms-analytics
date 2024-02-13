@@ -22,14 +22,23 @@ use VitesseCms\Core\Interfaces\InjectableInterface;
 
 class InitiateAdminListeners implements InitiateListenersInterface
 {
-    public static function setListeners(InjectableInterface $di): void
+    public static function setListeners(InjectableInterface $injectable): void
     {
-        $di->eventsManager->attach('adminMenu', new AdminMenuListener());
-        $di->eventsManager->attach(AdminanalyticsentryController::class, new AdminanalyticsentryControllerListener());
-        $di->eventsManager->attach(AdminblacklistentryController::class, new AdminblacklistentryControllerListener());
-        $di->eventsManager->attach(AdminwebcrawlerentryController::class, new AdminwebcrawlerentryControllerListener());
-        $di->eventsManager->attach(AdminclickentryController::class, new AdminclickentryControllerListener());
-        $di->eventsManager->attach(LatestClicks::class, new LatestClicksListener());
-        $di->eventsManager->attach(LatestViews::class, new LatestViewsListener());
+        $injectable->eventsManager->attach('adminMenu', new AdminMenuListener());
+        $injectable->eventsManager->attach(
+            AdminanalyticsentryController::class,
+            new AdminanalyticsentryControllerListener()
+        );
+        $injectable->eventsManager->attach(
+            AdminblacklistentryController::class,
+            new AdminblacklistentryControllerListener()
+        );
+        $injectable->eventsManager->attach(
+            AdminwebcrawlerentryController::class,
+            new AdminwebcrawlerentryControllerListener()
+        );
+        $injectable->eventsManager->attach(AdminclickentryController::class, new AdminclickentryControllerListener());
+        $injectable->eventsManager->attach(LatestClicks::class, new LatestClicksListener());
+        $injectable->eventsManager->attach(LatestViews::class, new LatestViewsListener());
     }
 }

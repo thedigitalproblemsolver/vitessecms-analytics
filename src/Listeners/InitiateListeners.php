@@ -17,21 +17,21 @@ use VitesseCms\Media\Enums\AssetsEnum;
 
 class InitiateListeners implements InitiateListenersInterface
 {
-    public static function setListeners(InjectableInterface $di): void
+    public static function setListeners(InjectableInterface $injectable): void
     {
-        $di->eventsManager->attach('adminMenu', new AdminMenuListener());
-        $di->eventsManager->attach(AssetsEnum::RENDER_LISTENER->value, new RenderListener($di->assets));
-        $di->eventsManager->attach(
+        $injectable->eventsManager->attach('adminMenu', new AdminMenuListener());
+        $injectable->eventsManager->attach(AssetsEnum::RENDER_LISTENER->value, new RenderListener($injectable->assets));
+        $injectable->eventsManager->attach(
             AnalyticsEnum::ANALYTICS_ASSETS_LISTENER->value,
             new AssetsListener(
-                $di->assets,
-                $di->configuration->getVendorNameDir()
+                $injectable->assets,
+                $injectable->configuration->getVendorNameDir()
             )
         );
-        $di->eventsManager->attach(
+        $injectable->eventsManager->attach(
             RegisterEnum::LISTENER->value,
             new RegisterControllerListener(
-                $di->request,
+                $injectable->request,
                 new AnalyticsEntryRepository(),
                 new BlackListEntryRepository(),
                 AdminUtil::isAdminPage()
