@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Listeners;
 
 use VitesseCms\Analytics\Enums\AnalyticsEnum;
 use VitesseCms\Media\Services\AssetsService;
 
-class RenderListener
+final class RenderListener
 {
     public function __construct(private readonly AssetsService $assetsService)
     {

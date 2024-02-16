@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Models;
 
@@ -15,7 +17,7 @@ class AnalyticsEntry extends AbstractCollection
     public string $browserVersion;
     public string $referer;
 
-    public function getNameField(?string $languageShort = null): string
+    public function getNameField(string $languageShort = null): string
     {
         return $this->slug ?? '';
     }

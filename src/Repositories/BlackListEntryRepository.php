@@ -20,21 +20,21 @@ class BlackListEntryRepository
     use TraitRepositoryParseGetById;
     use TraitRepositoryParseCount;
 
-    public function getById(string $id, bool $hideUnpublished = true): ?BlackListEntry
+    public function getById(string $modelId, bool $hideUnpublished = true): ?BlackListEntry
     {
-        return $this->parseGetById($id, $hideUnpublished);
+        return $this->parseGetById($modelId, $hideUnpublished);
     }
 
     public function findAll(
-        ?FindValueIterator $findValuesIterator = null,
+        FindValueIterator $findValuesIterator = null,
         bool $hideUnpublished = true,
-        ?int $limit = null,
-        ?FindOrderIterator $findOrders = null
+        int $limit = null,
+        FindOrderIterator $findOrders = null
     ): BlackListEntryIterator {
         return $this->parseFindAll($findValuesIterator, $hideUnpublished, $limit, $findOrders);
     }
 
-    public function count(?FindValueIterator $findValuesIterator = null, bool $hideUnpublished = true)
+    public function count(FindValueIterator $findValuesIterator = null, bool $hideUnpublished = true): int
     {
         return $this->parseCount($findValuesIterator, $hideUnpublished);
     }

@@ -8,7 +8,7 @@ use Phalcon\Events\Event;
 use VitesseCms\Admin\Forms\AdminlistFormInterface;
 use VitesseCms\Analytics\Controllers\AdminwebcrawlerentryController;
 
-class AdminwebcrawlerentryControllerListener
+final class AdminwebcrawlerentryControllerListener
 {
     public function adminListFilter(
         Event $event,

@@ -15,7 +15,7 @@ use VitesseCms\Core\Interfaces\InitiateListenersInterface;
 use VitesseCms\Core\Interfaces\InjectableInterface;
 use VitesseCms\Media\Enums\AssetsEnum;
 
-class InitiateListeners implements InitiateListenersInterface
+final class InitiateListeners implements InitiateListenersInterface
 {
     public static function setListeners(InjectableInterface $injectable): void
     {

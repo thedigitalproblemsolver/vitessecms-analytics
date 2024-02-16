@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
-use ArrayIterator;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelListInterface;
 use VitesseCms\Admin\Interfaces\AdminModelReadOnlyInterface;
@@ -22,10 +21,7 @@ use VitesseCms\Database\Models\FindOrder;
 use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValueIterator;
 
-class AdminwebcrawlerentryController extends AbstractControllerAdmin implements
-    AdminModelListInterface,
-    AdminModelDeletableInterface,
-    AdminModelReadOnlyInterface
+final class AdminwebcrawlerentryController extends AbstractControllerAdmin implements AdminModelListInterface, AdminModelDeletableInterface, AdminModelReadOnlyInterface
 {
     use TraitAdminModelDeletable;
     use TraitAdminModelList;
@@ -44,7 +40,7 @@ class AdminwebcrawlerentryController extends AbstractControllerAdmin implements
         );
     }
 
-    public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
+    public function getModelList(?FindValueIterator $findValueIterator): \ArrayIterator
     {
         return $this->webCrawlerEntryRepository->findAll(
             $findValueIterator,
@@ -54,8 +50,8 @@ class AdminwebcrawlerentryController extends AbstractControllerAdmin implements
         );
     }
 
-    public function getModel(string $id): ?AbstractCollection
+    public function getModel(string $modelId): ?AbstractCollection
     {
-        return $this->webCrawlerEntryRepository->getById($id, false);
+        return $this->webCrawlerEntryRepository->getById($modelId, false);
     }
 }

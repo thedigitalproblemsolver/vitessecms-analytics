@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
-use ArrayIterator;
 use VitesseCms\Admin\Interfaces\AdminModelAddableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelEditableInterface;
@@ -28,12 +27,7 @@ use VitesseCms\Database\Models\FindOrder;
 use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValueIterator;
 
-class AdminblacklistentryController extends AbstractControllerAdmin implements
-    AdminModelListInterface,
-    AdminModelDeletableInterface,
-    AdminModelAddableInterface,
-    AdminModelEditableInterface,
-    AdminModelPublishableInterface
+final class AdminblacklistentryController extends AbstractControllerAdmin implements AdminModelListInterface, AdminModelDeletableInterface, AdminModelAddableInterface, AdminModelEditableInterface, AdminModelPublishableInterface
 {
     use TraitAdminModelAddable;
     use TraitAdminModelDeletable;
@@ -42,7 +36,7 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
     use TraitAdminModelPublishable;
     use TraitAdminModelSave;
 
-    private readonly BlackListEntryRepository $blackListEntryRepository;
+    private BlackListEntryRepository $blackListEntryRepository;
 
     public function OnConstruct()
     {
@@ -54,7 +48,7 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
         );
     }
 
-    public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
+    public function getModelList(?FindValueIterator $findValueIterator): \ArrayIterator
     {
         return $this->blackListEntryRepository->findAll(
             $findValueIterator,
@@ -64,11 +58,11 @@ class AdminblacklistentryController extends AbstractControllerAdmin implements
         );
     }
 
-    public function getModel(string $id): ?AbstractCollection
+    public function getModel(string $modelModelId): ?AbstractCollection
     {
-        return match ($id) {
+        return match ($modelModelId) {
             'new' => new BlackListEntry(),
-            default => $this->blackListEntryRepository->getById($id, false)
+            default => $this->blackListEntryRepository->getById($modelModelId, false)
         };
     }
 
