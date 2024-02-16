@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Listeners\Controllers;
 
-use DateTime;
 use Phalcon\Events\Event;
 use Phalcon\Http\Request;
 use Phalcon\Incubator\MongoDB\Helper\Mongo;
@@ -18,24 +19,26 @@ use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
 use VitesseCms\Sef\Utils\SefUtil;
 
-class RegisterControllerListener
+final class RegisterControllerListener
 {
     public function __construct(
-        private readonly Request                  $request,
+        private readonly Request $request,
         private readonly AnalyticsEntryRepository $analyticsEntryRepository,
         private readonly BlackListEntryRepository $blackListEntryRepository,
-        private readonly bool                     $isAdminPage,
-    )
-    {
+        private readonly bool $isAdminPage,
+    ) {
     }
 
     public function handleEntry(): ?string
     {
         if (SefUtil::clientIsBot($this->request->getUserAgent())) {
             $this->parseWebCrawlerVisit();
-        } else if ($this->shouldHandleRequest()) {
-            return $this->parsePageView();
 
+            return null;
+        }
+
+        if ($this->shouldHandleRequest()) {
+            return $this->parsePageView();
         }
 
         return null;
@@ -45,7 +48,7 @@ class RegisterControllerListener
     {
         WebCrawlerEntryFactory::create(
             $this->request->getPost('path'),
-            new DateTime(),
+            new \DateTime(),
             $this->request->getUserAgent(),
             $this->request->getPost('referrer')
         )->save();
@@ -53,16 +56,18 @@ class RegisterControllerListener
 
     private function shouldHandleRequest(): bool
     {
-        return !$this->isAdminPage &&
-            $this->blackListEntryRepository->count(new FindValueIterator([new FindValue('ipAddress', $this->request->getClientAddress())])) === 0 &&
-            !SefUtil::clientIsBot($this->request->getUserAgent());
+        return !$this->isAdminPage
+            && 0 === $this->blackListEntryRepository->count(
+                new FindValueIterator([new FindValue('ipAddress', $this->request->getClientAddress())])
+            )
+            && !SefUtil::clientIsBot($this->request->getUserAgent());
     }
 
     private function parsePageView(): string
     {
         $analyticsEntry = AnalyticsEntryFactory::create(
             $this->request->getPost('path'),
-            new DateTime(),
+            new \DateTime(),
             ServerUtil::getOperatingSystemFromUserAgent($this->request->getUserAgent()),
             ServerUtil::getBrowserNameFromUserAgent($this->request->getUserAgent()),
             ServerUtil::getBrowserVersionFromUserAgent($this->request->getUserAgent()),
@@ -71,15 +76,15 @@ class RegisterControllerListener
         );
         $analyticsEntry->save();
 
-        return (string)$analyticsEntry->getId();
+        return (string) $analyticsEntry->getId();
     }
 
     public function handleExit(Event $event, RegisterExitDTO $registerExitDTO): void
     {
         if ($this->shouldHandleRequest()) {
-            $analyticsEntry = $this->analyticsEntryRepository->getById($registerExitDTO->id);
-            if ($analyticsEntry !== null && $analyticsEntry->exitTime === null) {
-                $analyticsEntry->exitTime = Mongo::convertDatetime(new DateTime());
+            $analyticsEntry = $this->analyticsEntryRepository->getById($registerExitDTO->entryId);
+            if (null !== $analyticsEntry && null === $analyticsEntry->exitTime) {
+                $analyticsEntry->exitTime = Mongo::convertDatetime(new \DateTime());
                 $analyticsEntry->save();
             }
         }
@@ -90,7 +95,7 @@ class RegisterControllerListener
         if ($this->shouldHandleRequest()) {
             ClickEntryFactory::create(
                 $clickEntryDTO->path,
-                new DateTime(),
+                new \DateTime(),
                 $clickEntryDTO->category,
                 $clickEntryDTO->target,
                 $clickEntryDTO->action

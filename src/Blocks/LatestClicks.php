@@ -19,14 +19,14 @@ use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
 
-class LatestClicks extends AbstractBlockModel
+final class LatestClicks extends AbstractBlockModel
 {
     private ClickEntryRepository $clickEntryRepository;
     private ItemRepository $itemRepository;
 
-    public function __construct(ViewService $view, Di $di)
+    public function __construct(ViewService $view, Di $injectable)
     {
-        parent::__construct($view, $di);
+        parent::__construct($view, $injectable);
 
         $this->clickEntryRepository = $this->eventsManager->fire(
             RepositoryEnum::GET_REPOSITORY->value,
@@ -38,6 +38,9 @@ class LatestClicks extends AbstractBlockModel
         );
     }
 
+    /**
+     * @return array<string,ClickEntry[]>
+     */
     public function getTemplateParams(Block $block): array
     {
         $params = parent::getTemplateParams($block);
@@ -59,9 +62,9 @@ class LatestClicks extends AbstractBlockModel
                     new FindValueIterator(
                         [
                             new FindValue(
-                                'slug.' . $this->di->get('configuration')->getLanguageShort(),
+                                'slug.'.$this->di->get('configuration')->getLanguageShort(),
                                 ltrim($clickEntry->slug, '/')
-                            )
+                            ),
                         ]
                     )
                 );

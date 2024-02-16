@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\DTO;
 
 final class RegisterExitDTO
 {
-    final public function __construct(public readonly string $id)
+    final public function __construct(public readonly string $entryId)
     {
     }
 }

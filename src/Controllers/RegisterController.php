@@ -4,28 +4,27 @@ declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
-use stdClass;
 use VitesseCms\Analytics\DTO\ClickEntryDTO;
 use VitesseCms\Analytics\DTO\RegisterExitDTO;
 use VitesseCms\Analytics\Enums\RegisterEnum;
 use VitesseCms\Core\AbstractControllerAdmin;
 
-class RegisterController extends AbstractControllerAdmin
+final class RegisterController extends AbstractControllerAdmin
 {
     public function entryAction(): void
     {
-        $id = $this->eventsManager->fire(RegisterEnum::EVENT_HANDLE_ENTRY->value, new stdClass());
+        $entryId = $this->eventsManager->fire(RegisterEnum::EVENT_HANDLE_ENTRY->value, new \stdClass());
 
-        if ($id !== null) {
-            $this->jsonResponse(['id' => $id]);
+        if (null !== $entryId) {
+            $this->jsonResponse(['id' => $entryId]);
         } else {
             $this->viewService->disable();
         }
     }
 
-    public function exitAction(string $id): void
+    public function exitAction(string $entryId): void
     {
-        $this->eventsManager->fire(RegisterEnum::EVENT_HANDLE_EXIT->value, new RegisterExitDTO($id));
+        $this->eventsManager->fire(RegisterEnum::EVENT_HANDLE_EXIT->value, new RegisterExitDTO($entryId));
 
         $this->viewService->disable();
     }

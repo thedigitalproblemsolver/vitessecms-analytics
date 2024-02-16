@@ -18,16 +18,16 @@ class WebCrawlerEntryRepository
     use TraitRepositoryParseFindAll;
     use TraitRepositoryParseGetById;
 
-    public function getById(string $id, bool $hideUnpublished = true): ?WebCrawlerEntry
+    public function getById(string $modelId, bool $hideUnpublished = true): ?WebCrawlerEntry
     {
-        return $this->parseGetById($id, $hideUnpublished);
+        return $this->parseGetById($modelId, $hideUnpublished);
     }
 
     public function findAll(
-        ?FindValueIterator $findValuesIterator = null,
+        FindValueIterator $findValuesIterator = null,
         bool $hideUnpublished = true,
-        ?int $limit = null,
-        ?FindOrderIterator $findOrders = null
+        int $limit = null,
+        FindOrderIterator $findOrders = null
     ): WebCrawlerEntryIterator {
         return $this->parseFindAll($findValuesIterator, $hideUnpublished, $limit, $findOrders);
     }

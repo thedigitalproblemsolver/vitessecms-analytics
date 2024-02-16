@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Listeners\Controllers;
 
@@ -6,10 +7,13 @@ use Phalcon\Events\Event;
 use VitesseCms\Admin\Forms\AdminlistFormInterface;
 use VitesseCms\Analytics\Controllers\AdminblacklistentryController;
 
-class AdminblacklistentryControllerListener
+final class AdminblacklistentryControllerListener
 {
-    public function adminListFilter(Event $event, AdminblacklistentryController $controller, AdminlistFormInterface $form): void
-    {
+    public function adminListFilter(
+        Event $event,
+        AdminblacklistentryController $controller,
+        AdminlistFormInterface $form
+    ): void {
         $form->addText('%ANALYTICS_IP_ADDRESS%', 'filter[ipAddress]');
     }
 }

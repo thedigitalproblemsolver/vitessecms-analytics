@@ -1,11 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Models;
 
-use ArrayIterator;
-
-class AnalyticsEntryIterator extends ArrayIterator
+/**
+ * @extends \ArrayIterator<int, AnalyticsEntry>
+ */
+class AnalyticsEntryIterator extends \ArrayIterator
 {
+    /**
+     * @param array<int, AnalyticsEntry> $items
+     */
     public function __construct(array $items)
     {
         parent::__construct($items);

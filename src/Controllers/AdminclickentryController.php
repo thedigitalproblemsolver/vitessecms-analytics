@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Controllers;
 
-use ArrayIterator;
 use VitesseCms\Admin\Interfaces\AdminModelDeletableInterface;
 use VitesseCms\Admin\Interfaces\AdminModelListInterface;
 use VitesseCms\Admin\Interfaces\AdminModelReadOnlyInterface;
@@ -22,17 +21,14 @@ use VitesseCms\Database\Models\FindOrder;
 use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValueIterator;
 
-class AdminclickentryController extends AbstractControllerAdmin implements
-    AdminModelListInterface,
-    AdminModelDeletableInterface,
-    AdminModelReadOnlyInterface
+final class AdminclickentryController extends AbstractControllerAdmin implements AdminModelListInterface, AdminModelDeletableInterface, AdminModelReadOnlyInterface
 {
     use TraitAdminModelDeletable;
     use TraitAdminModelList;
     use TraitAdminModelPreviewable;
     use TraitAdminModelReadOnly;
 
-    private readonly ClickEntryRepository $clickEntryRepository;
+    private ClickEntryRepository $clickEntryRepository;
 
     public function OnConstruct()
     {
@@ -44,7 +40,7 @@ class AdminclickentryController extends AbstractControllerAdmin implements
         );
     }
 
-    public function getModelList(?FindValueIterator $findValueIterator): ArrayIterator
+    public function getModelList(?FindValueIterator $findValueIterator): \ArrayIterator
     {
         return $this->clickEntryRepository->findAll(
             $findValueIterator,
@@ -54,8 +50,8 @@ class AdminclickentryController extends AbstractControllerAdmin implements
         );
     }
 
-    public function getModel(string $id): ?AbstractCollection
+    public function getModel(string $modelId): ?AbstractCollection
     {
-        return $this->clickEntryRepository->getById($id, false);
+        return $this->clickEntryRepository->getById($modelId, false);
     }
 }

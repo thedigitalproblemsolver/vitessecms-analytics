@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\DTO;
 
@@ -9,7 +11,6 @@ final class ClickEntryDTO
         public readonly string $target,
         public readonly string $category,
         public readonly string $action
-    )
-    {
+    ) {
     }
 }

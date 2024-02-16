@@ -8,7 +8,7 @@ use Phalcon\Events\Event;
 use VitesseCms\Admin\Forms\AdminlistFormInterface;
 use VitesseCms\Analytics\Controllers\AdminanalyticsentryController;
 
-class AdminanalyticsentryControllerListener
+final class AdminanalyticsentryControllerListener
 {
     public function adminListFilter(
         Event $event,

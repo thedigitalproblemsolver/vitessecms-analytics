@@ -8,7 +8,7 @@ use Phalcon\Events\Event;
 use VitesseCms\Block\Forms\BlockForm;
 use VitesseCms\Form\Models\Attributes;
 
-class LatestViewsListener
+final class LatestViewsListener
 {
     public function buildBlockForm(Event $event, BlockForm $form): void
     {
