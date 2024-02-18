@@ -1,3 +1,4 @@
+import React from "react";
 import EventsByDay from "./EventsByDay";
 
 export default function AnalyticsDashboard() {

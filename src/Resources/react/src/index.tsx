@@ -1,8 +1,6 @@
-import React from 'react';
 import ReactDOM from "react-dom/client";
-import AnalyticsDashboard from "./AnalyticsDashboard";
-
-window.React = React;
+import AnalyticsDashboard from "./components/AnalyticsDashboard";
+import React from "react";
 
 const analyticsDashboardContainer = document.getElementById('react-analytics-dashboard');
 if (null !== analyticsDashboardContainer) {
