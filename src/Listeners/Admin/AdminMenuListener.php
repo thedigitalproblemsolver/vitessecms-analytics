@@ -10,13 +10,16 @@ use VitesseCms\Admin\Models\AdminMenuNavBarChildren;
 
 final class AdminMenuListener
 {
-    public function AddChildren(Event $event, AdminMenu $adminMenu): void
+    public function addChildren(Event $event, AdminMenu $adminMenu): void
     {
-        $children = new AdminMenuNavBarChildren();
-        $children->addChild('Pageviews', 'admin/analytics/adminanalyticsentry/adminlist');
-        $children->addChild('Click actions', 'admin/analytics/adminclickentry/adminlist');
-        $children->addChild('WebCrawler visits', 'admin/analytics/adminwebcrawlerentry/adminlist');
-        $children->addChild('Blacklist', 'admin/analytics/adminblacklistentry/adminlist');
-        $adminMenu->addDropdown('Insights', $children);
+        $adminMenu->addDropdown(
+            'Insights',
+            (new AdminMenuNavBarChildren())
+                ->addChild('Pageviews', 'admin/analytics/adminanalyticsentry/adminlist')
+                ->addChild('Click actions', 'admin/analytics/adminclickentry/adminlist')
+                ->addChild('WebCrawler visits', 'admin/analytics/adminwebcrawlerentry/adminlist')
+                ->addChild('Blacklist', 'admin/analytics/adminblacklistentry/adminlist')
+                ->addChild('Dashboard', 'admin/analytics/admindashboard/index')
+        );
     }
 }
