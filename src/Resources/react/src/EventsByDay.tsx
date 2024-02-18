@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from "react";
 
-export default function EventsByDay(props) {
+export default function EventsByDay({source, title}: { source: string, title: string }) {
     const [entries, setEntries] = useState([]);
     useEffect(() => {
         getData();
     }, []);
 
     const getData = async () => {
-        const response = await fetch('http://new.lekker-tuinieren.nl/admin/analytics/admindashboard/' + props.source);
+        const response = await fetch('http://new.lekker-tuinieren.nl/admin/analytics/admindashboard/' + source);
         const data = await response.json();
         setEntries(data.data);
     };
 
     return <div>
-        <p>{props.title}</p>
+        <p>{title}</p>
         <table className="table table-bordered">
             {entries.map((entry) => {
                 return (

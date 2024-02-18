@@ -1,12 +1,15 @@
 const path = require("path");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/index.tsx",
     output: {path: path.resolve(__dirname, "dist")},
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js']
+    },
     module: {
         rules: [
             {
-                test: /.(js|jsx)$/,
+                test: /.(js|jsx|tsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
