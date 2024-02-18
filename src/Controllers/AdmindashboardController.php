@@ -10,11 +10,11 @@ final class AdmindashboardController extends AbstractControllerAdmin
 {
     public function indexAction(): void
     {
-        $this->assetsService->loadReact();
-        $jsx = file_get_contents(__DIR__.'/../Resources/react/dashboard.jsx');
-        if ($jsx) {
-            $this->assetsService->addInlineBabel($jsx);
+        $mainJs = file_get_contents(__DIR__.'/../Resources/react/dist/main.js');
+        if ($mainJs) {
+            $this->assetsService->addInlineJs($mainJs);
         }
+
         $this->viewService->set('content', '<div id="react-analytics-dashboard"></div>');
     }
 
