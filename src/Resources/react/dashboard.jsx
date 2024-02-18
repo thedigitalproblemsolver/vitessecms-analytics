@@ -38,6 +38,7 @@ function EventsByDay(props) {
 
 //https://www.freecodecamp.org/news/how-to-consume-rest-apis-in-react/
 //https://stackblitz.com/edit/react-tl46ms?file=src%2FApp.js
+//https://www.turing.com/kb/use-webpack-with-react
 
 const analyticsDashboardContainer = document.getElementById('react-analytics-dashboard');
 if (null !== analyticsDashboardContainer) {
