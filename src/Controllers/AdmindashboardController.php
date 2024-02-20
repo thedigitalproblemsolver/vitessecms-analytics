@@ -24,15 +24,15 @@ final class AdmindashboardController extends AbstractControllerAdmin
             'data' => [
                 [
                     'date' => '2024-02-16',
-                    'amount' => rand(0, 999),
+                    'amount' => rand(0, 30),
                 ],
                 [
                     'date' => '2024-02-15',
-                    'amount' => rand(0, 999),
+                    'amount' => rand(0, 30),
                 ],
                 [
                     'date' => '2024-02-14',
-                    'amount' => rand(0, 999),
+                    'amount' => rand(0, 30),
                 ],
             ],
         ]);
