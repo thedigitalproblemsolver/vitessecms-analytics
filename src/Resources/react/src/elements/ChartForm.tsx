@@ -5,9 +5,9 @@ export default function ChartForm() {
         <form>
             <label>
                 Max amount
-                <input type="number" name="name" placeholder="Default: 30"/>
+                <input type='number' name='name' placeholder='Default: 30'/>
             </label>
-            <input type="submit" value="Reload"/>
+            <input type='submit' value='Reload'/>
         </form>
     );
 }

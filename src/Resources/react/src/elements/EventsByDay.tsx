@@ -14,16 +14,13 @@ export default function EventsByDay({source, title}: { source: string, title: st
 
     return <div>
         <p>{title}</p>
-        <table className="table table-bordered">
-            {entries.map((entry: Entry) => {
-                return (
-                    <tr>
-                        <th className="post-title">{entry.date}</th>
-                        <td className="post-body">{entry.amount}</td>
-                    </tr>
-                )
-            })
-            }
+        <table className='table table-bordered'>
+            {entries.map((entry: Entry) => (
+                <tr>
+                    <th className='post-title'>{entry.date}</th>
+                    <td className='post-body'>{entry.amount}</td>
+                </tr>
+            ))}
         </table>
         <button onClick={getData}>Reload</button>
     </div>;

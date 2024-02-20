@@ -39,7 +39,7 @@ export default function BarChart({source, title}: { source: string, title: strin
     };
 
     return (
-        <div className="chart-container">
+        <div className='chart-container'>
             <Bar
                 data={data}
                 options={options}
@@ -47,4 +47,4 @@ export default function BarChart({source, title}: { source: string, title: strin
             <ChartForm/>
         </div>
     );
-};
+}
