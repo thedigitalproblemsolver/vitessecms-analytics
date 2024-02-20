@@ -1,4 +1,4 @@
 type BarChartDataset = {
-    data: Array<number> | undefined
-    backgroundColor: Array<string>
-};
+  data: Array<number> | undefined
+  backgroundColor: Array<string>
+}

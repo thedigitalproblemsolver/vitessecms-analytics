@@ -1,4 +1,4 @@
 type FetchResult = {
-    result: boolean
-    data: Entry[]
-};
+  result: boolean
+  data: Entry[]
+}

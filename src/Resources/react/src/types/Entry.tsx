@@ -1,4 +1,4 @@
 type Entry = {
-    date: string
-    amount: number
-};
+  date: string
+  amount: number
+}
