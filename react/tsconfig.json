@@ -4,7 +4,7 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "outDir": "../js",
+    "outDir": "../src/Resources/js",
     "strict": true,
     "esModuleInterop": true
   },
