@@ -1,8 +1,8 @@
 {
-  "name": "react",
+  "name": "vitessecms-admin-react",
   "version": "1.0.0",
-  "description": "React components for VitesseCme analytics module",
-  "main": "index.js",
+  "description": "React components for VitesseCms analytics module",
+  "main": "index.tsx",
   "scripts": {
     "build-dist": "npm run analyze-and-fix && npm run fix-codestyle && webpack",
     "analyze": "npx eslint ./src/**/**",
@@ -12,13 +12,12 @@
   "keywords": [],
   "author": "Jasper Jaklofsky",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "chart.js": "^4.4.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
+    "react-dom": "^18.2.0",
     "@babel/core": "^7.23.9",
     "@babel/eslint-parser": "^7.23.10",
     "@babel/preset-env": "^7.23.9",

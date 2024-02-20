@@ -10,7 +10,7 @@ final class AdmindashboardController extends AbstractControllerAdmin
 {
     public function indexAction(): void
     {
-        $mainJs = file_get_contents(__DIR__.'/../Resources/react/dist/main.js');
+        $mainJs = file_get_contents(__DIR__.'/../Resources/js/main.js');
         if ($mainJs) {
             $this->assetsService->addInlineJs($mainJs);
         }
