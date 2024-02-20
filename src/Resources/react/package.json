@@ -4,7 +4,7 @@
   "description": "React components for VitesseCme analytics module",
   "main": "index.js",
   "scripts": {
-    "build-dist": "webpack",
+    "build-dist": "npm run analyze-and-fix && npm run fix-codestyle && webpack",
     "analyze": "npx eslint ./src/**/**",
     "analyze-and-fix": "npx eslint --fix ./src/**/**",
     "fix-codestyle": "npx prettier . --write"
