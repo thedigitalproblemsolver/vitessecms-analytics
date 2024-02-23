@@ -3,7 +3,6 @@ import { Bar } from 'react-chartjs-2'
 import { Chart } from 'chart.js/auto'
 import { CategoryScale } from 'chart.js'
 import FetchApi from '../utils/FetchApi'
-import ChartForm from './ChartForm'
 
 Chart.register(CategoryScale)
 
@@ -39,11 +38,10 @@ export default function BarChart({ source, title }: { source: string; title: str
       }
     }
   }
-
+  console.log(data)
   return (
     <div className='chart-container'>
       <Bar data={data} options={options} />
-      <ChartForm />
     </div>
   )
 }
