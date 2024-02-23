@@ -20,7 +20,7 @@ use VitesseCms\Analytics\Listeners\Controllers\AdminwebcrawlerentryControllerLis
 use VitesseCms\Core\Interfaces\InitiateListenersInterface;
 use VitesseCms\Core\Interfaces\InjectableInterface;
 
-class InitiateAdminListeners implements InitiateListenersInterface
+final class InitiateAdminListeners implements InitiateListenersInterface
 {
     public static function setListeners(InjectableInterface $injectable): void
     {

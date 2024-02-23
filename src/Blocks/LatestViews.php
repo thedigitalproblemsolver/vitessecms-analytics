@@ -20,14 +20,14 @@ use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
 
-class LatestViews extends AbstractBlockModel
+final class LatestViews extends AbstractBlockModel
 {
     private AnalyticsEntryRepository $analyticsEntryRepository;
     private ItemRepository $itemRepository;
 
-    public function __construct(ViewService $view, Di $di)
+    public function __construct(ViewService $view, Di $injectable)
     {
-        parent::__construct($view, $di);
+        parent::__construct($view, $injectable);
 
         $this->analyticsEntryRepository = $this->eventsManager->fire(
             RepositoryEnum::GET_REPOSITORY->value,
@@ -40,15 +40,17 @@ class LatestViews extends AbstractBlockModel
         );
     }
 
+    /**
+     * @return array<string,AnalyticsEntry[]>
+     */
     public function getTemplateParams(Block $block): array
     {
         $params = parent::getTemplateParams($block);
         $limit = $block->getInt('itemsLimit');
 
-
-        $AnalyticsEntries = $this->analyticsEntryRepository->findAll(
+        $analyticsEntries = $this->analyticsEntryRepository->findAll(
             new FindValueIterator([
-                new FindValue('slug', '/', FindValueTypeEnum::NOT->value)
+                new FindValue('slug', '/', FindValueTypeEnum::NOT->value),
             ]),
             true,
             $limit * 2,
@@ -57,26 +59,26 @@ class LatestViews extends AbstractBlockModel
 
         $items = [];
         $parsed = [];
-        while ($AnalyticsEntries->valid()) {
-            $AnalyticsEntry = $AnalyticsEntries->current();
-            if (!isset($parsed[$AnalyticsEntry->slug]) && count($items) < $limit) {
+        while ($analyticsEntries->valid()) {
+            $analyticsEntry = $analyticsEntries->current();
+            if (!isset($parsed[$analyticsEntry->slug]) && count($items) < $limit) {
                 $item = $this->itemRepository->findFirst(
                     new FindValueIterator(
                         [
                             new FindValue(
-                                'slug.' . $this->di->get('configuration')->getLanguageShort(),
-                                ltrim($AnalyticsEntry->slug, '/')
-                            )
+                                'slug.'.$this->di->get('configuration')->getLanguageShort(),
+                                ltrim($analyticsEntry->slug, '/')
+                            ),
                         ]
                     )
                 );
-                if ($item !== null) {
+                if (null !== $item) {
                     $items[] = $item;
                 }
-                $parsed[$AnalyticsEntry->slug] = '';
+                $parsed[$analyticsEntry->slug] = '';
             }
 
-            $AnalyticsEntries->next();
+            $analyticsEntries->next();
         }
 
         $params['items'] = $items;

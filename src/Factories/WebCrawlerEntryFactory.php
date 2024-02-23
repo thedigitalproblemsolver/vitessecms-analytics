@@ -1,21 +1,21 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Factories;
 
-use DateTime;
 use Phalcon\Incubator\MongoDB\Helper\Mongo;
 use VitesseCms\Analytics\Models\WebCrawlerEntry;
 
-class WebCrawlerEntryFactory
+final class WebCrawlerEntryFactory
 {
     public static function create(
-        string   $slug,
-        DateTime $entryTime,
-        string   $userAgent,
-        string   $referer,
-        bool     $published = true
-    ): WebCrawlerEntry
-    {
+        string $slug,
+        \DateTime $entryTime,
+        string $userAgent,
+        string $referer,
+        bool $published = true
+    ): WebCrawlerEntry {
         $webCrawlerEntry = new WebCrawlerEntry();
         $webCrawlerEntry->slug = $slug;
         $webCrawlerEntry->entryTime = Mongo::convertDatetime($entryTime);

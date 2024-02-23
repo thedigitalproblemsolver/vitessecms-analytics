@@ -1,11 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Analytics\Models;
 
-use ArrayIterator;
-
-class BlackListEntryIterator extends ArrayIterator
+/**
+ * @extends \ArrayIterator<int, BlackListEntry>
+ */
+class BlackListEntryIterator extends \ArrayIterator
 {
+    /**
+     * @param array<int, BlackListEntry> $items
+     */
     public function __construct(array $items)
     {
         parent::__construct($items);
